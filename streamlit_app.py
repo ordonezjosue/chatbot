@@ -3,41 +3,6 @@ import streamlit as st
 # --- MUST BE FIRST Streamlit command ---
 st.set_page_config(page_title="Josue Ordonez - Portfolio", layout="centered")
 
-# --- Custom CSS for Styling ---
-st.markdown("""
-    <style>
-    body {
-        background-color: #f8f9fa;
-        color: #212529; font-size: 16px;
-        font-family: 'Arial', sans-serif;
-    }
-    .stApp {
-        background-color: #ffffff;
-        padding: 30px;
-        border-radius: 8px;
-        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-        max-width: 800px;
-        margin: auto;
-    }
-    .section-title {
-        color: #003366;
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-    .section-content {
-        margin-bottom: 20px;
-    }
-    .project-link {
-        color: #003366;
-        text-decoration: none;
-        font-weight: bold;
-    }
-    .project-link:hover {
-        text-decoration: underline;
-    }
-    </style>
-""", unsafe_allow_html=True)
 
 # --- Page Title ---
 st.title("Josue Ordonez - Portfolio")
