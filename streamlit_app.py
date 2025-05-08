@@ -1,56 +1,84 @@
 import streamlit as st
-from openai import OpenAI
 
-# Show title and description.
-st.title("💬 Chatbot")
-st.write(
-    "This is a simple chatbot that uses OpenAI's GPT-3.5 model to generate responses. "
-    "To use this app, you need to provide an OpenAI API key, which you can get [here](https://platform.openai.com/account/api-keys). "
-    "You can also learn how to build this app step by step by [following our tutorial](https://docs.streamlit.io/develop/tutorials/llms/build-conversational-apps)."
-)
+# --- MUST BE FIRST Streamlit command ---
+st.set_page_config(page_title="Josue Ordonez - Portfolio", layout="centered")
 
-# Ask user for their OpenAI API key via `st.text_input`.
-# Alternatively, you can store the API key in `./.streamlit/secrets.toml` and access it
-# via `st.secrets`, see https://docs.streamlit.io/develop/concepts/connections/secrets-management
-openai_api_key = st.text_input("OpenAI API Key", type="password")
-if not openai_api_key:
-    st.info("Please add your OpenAI API key to continue.", icon="🗝️")
-else:
+# --- Custom CSS for Styling ---
+st.markdown("""
+    <style>
+    body {
+        background-color: #f8f9fa;
+        color: #212529; font-size: 16px;
+        font-family: 'Arial', sans-serif;
+    }
+    .stApp {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        max-width: 800px;
+        margin: auto;
+    }
+    .section-title {
+        color: #003366;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    .section-content {
+        margin-bottom: 20px;
+    }
+    .project-link {
+        color: #003366;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .project-link:hover {
+        text-decoration: underline;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
-    # Create an OpenAI client.
-    client = OpenAI(api_key=openai_api_key)
+# --- Page Title ---
+st.title("Josue Ordonez - Portfolio")
 
-    # Create a session state variable to store the chat messages. This ensures that the
-    # messages persist across reruns.
-    if "messages" not in st.session_state:
-        st.session_state.messages = []
+# --- Professional Summary ---
+st.markdown("<div class='section-title'>Professional Summary</div>", unsafe_allow_html=True)
+st.markdown("<div class='section-content'>Experienced sales manager and options trader with over 22 years in customer relations, team management, and data analysis. Skilled in building automated solutions using Python and Streamlit to streamline processes and enhance decision-making. Currently transitioning to a tech-focused role to leverage expertise in data analysis and financial trading.</div>", unsafe_allow_html=True)
 
-    # Display the existing chat messages via `st.chat_message`.
-    for message in st.session_state.messages:
-        with st.chat_message(message["role"]):
-            st.markdown(message["content"])
+# --- Skills and Technologies ---
+st.markdown("<div class='section-title'>Skills and Technologies</div>", unsafe_allow_html=True)
+st.markdown("""<div class='section-content'>
+<ul>
+    <li>Python, Pandas, Streamlit, Matplotlib</li>
+    <li>API Integrations and Data Automation</li>
+    <li>Options Trading Strategies and Data Analysis</li>
+    <li>Customer Relationship Management</li>
+    <li>Web App Development and Data Visualization</li>
+</ul>
+</div>""", unsafe_allow_html=True)
 
-    # Create a chat input field to allow the user to enter a message. This will display
-    # automatically at the bottom of the page.
-    if prompt := st.chat_input("What is up?"):
+# --- Projects Section ---
+st.markdown("<div class='section-title'>Projects</div>", unsafe_allow_html=True)
+st.markdown("""<div class='section-content'>
+<ul>
+    <li><a href='https://conferencecall.streamlit.app' class='project-link'>Conference Call App</a>: Manage and track conference calls with automated scheduling and tracking features.</li>
+    <li><a href='https://wzmetrics.streamlit.app' class='project-link'>WZ Metrics Dashboard</a>: Visualize and analyze sales performance metrics with dynamic data insights.</li>
+    <li><a href='https://spywheelscreener.streamlit.app' class='project-link'>SPY Wheel Screener</a>: Identify optimal SPY wheel strategy setups with data filtering and screening tools.</li>
+</ul>
+</div>""", unsafe_allow_html=True)
 
-        # Store and display the current prompt.
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        with st.chat_message("user"):
-            st.markdown(prompt)
+# --- Career Goals ---
+st.markdown("<div class='section-title'>Career Goals</div>", unsafe_allow_html=True)
+st.markdown("""<div class='section-content'>
+<p>Transitioning to a data-focused role where I can build and manage automated systems for financial trading and business analytics. Seeking opportunities to apply skills in data analysis, Python, and options trading to drive actionable insights and operational efficiency.</p>
+</div>""", unsafe_allow_html=True)
 
-        # Generate a response using the OpenAI API.
-        stream = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": m["role"], "content": m["content"]}
-                for m in st.session_state.messages
-            ],
-            stream=True,
-        )
-
-        # Stream the response to the chat using `st.write_stream`, then store it in 
-        # session state.
-        with st.chat_message("assistant"):
-            response = st.write_stream(stream)
-        st.session_state.messages.append({"role": "assistant", "content": response})
+# --- Contact Information ---
+st.markdown("<div class='section-title'>Contact Information</div>", unsafe_allow_html=True)
+st.markdown("""<div class='section-content'>
+<ul>
+    <li>ð§ Email: ordonezjosue@gmail.com</li>
+    <li>ð LinkedIn: <a href='https://www.linkedin.com/in/josue-ordonez-7843192a' class='project-link'>Connect with me on LinkedIn</a></li>
+</ul>
+</div>""", unsafe_allow_html=True)
